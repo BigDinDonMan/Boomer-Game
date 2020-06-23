@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -32,7 +33,7 @@ public class MainMenuScreen implements Screen {
         this.camera = new OrthographicCamera();
         this.viewport = new ExtendViewport(1280, 800, this.camera);
         this.stage = new Stage(this.viewport, this.batch);
-        this.backgroundTexture = new Texture("main_background.jpg");
+        this.backgroundTexture = new Texture(Gdx.files.internal("sprites/main_background.jpg"));
     }
 
     @Override
@@ -48,6 +49,10 @@ public class MainMenuScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        this.batch.begin();
+        this.batch.draw(this.backgroundTexture, 0, 0, 1280, 800);
+        this.batch.end();
 
         this.stage.act(Gdx.graphics.getDeltaTime());
         this.stage.draw();
