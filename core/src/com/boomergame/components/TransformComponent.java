@@ -8,6 +8,11 @@ public class TransformComponent implements Component {
     private Vector2 scale;
     private float rotation = 0f;
 
+    public TransformComponent() {
+        this.position = new Vector2(0, 0);
+        this.scale = new Vector2(1, 1);
+    }
+
     public Vector2 getPosition() {
         return this.position;
     }

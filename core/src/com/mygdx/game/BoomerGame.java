@@ -7,6 +7,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.boomergame.systems.AudioSystem;
+import com.boomergame.systems.MovementSystem;
 
 public class BoomerGame extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -16,20 +18,33 @@ public class BoomerGame extends ApplicationAdapter {
 
 	Entity playerEntity;
 
+	MovementSystem movementSystem;
+	AudioSystem audioSystem;
+
+
 	public BoomerGame() {
 		super();
 		this.ECSEngine = new Engine();
 		this.playerEntity = new Entity();
+		this.ECSEngine.addEntity(this.playerEntity);
+		this.initializePlayerEntity();
+		this.initializeGameSystems();
+	}
+
+	private void initializeGameSystems() {
+        this.movementSystem = new MovementSystem();
+
+        this.ECSEngine.addSystem(this.movementSystem);
+	}
+
+	private void initializePlayerEntity() {
+
 	}
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
-	}
-
-	public void update() {
-
 	}
 
 	@Override
