@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,7 +14,6 @@ import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.boomergame.core.GameConstants;
-import com.boomergame.core.GameState;
 import com.boomergame.systems.DisposableSystem;
 
 import java.util.ArrayList;
@@ -22,12 +22,12 @@ import java.util.List;
 public class BoomerGame extends ApplicationAdapter {
 
 	Engine ECSEngine;
+	World world;
+
 	List<DisposableSystem> systemsForCleanup;
 
 	Entity playerEntity;
 
-	World world;
-	GameState gameState = GameState.MAIN_MENU;
     //<editor-fold> Game resources (init in create();)
 	SpriteBatch mainBatch;
 	SpriteBatch UIBatch;
@@ -53,52 +53,11 @@ public class BoomerGame extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-	    if (this.gameState != GameState.PAUSED) {
-            Gdx.gl.glClearColor(0, 0, 0, 1);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        }
-
-		stepWorld();
-
-		switch (this.gameState) {
-            case MAIN_MENU:
-                this.drawMainMenu();
-                break;
-
-            case PLAYING:
-                this.drawGame();
-                break;
-
-            case PAUSED:
-                this.drawPauseMenu();
-                break;
-
-            case HIGHSCORES:
-                this.drawHighscores();
-                break;
-
-            case CREDITS:
-                this.drawCredits();
-                break;
-        }
-
-        this.updateGame(this.gameState);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        this.stepWorld();
+        this.ECSEngine.update(Gdx.graphics.getDeltaTime());
 	}
-
-	private void updateGame(GameState state) {
-	    switch (state) {
-            case MAIN_MENU:
-                break;
-            case PLAYING:
-                break;
-            case PAUSED:
-                break;
-            case HIGHSCORES:
-                break;
-            case CREDITS:
-                break;
-        }
-    }
 
 	private float accumulator = 0;
 
@@ -143,31 +102,11 @@ public class BoomerGame extends ApplicationAdapter {
         this.UIBatch = new SpriteBatch();
         this.img = new Texture("badlogic.jpg");
 
-        this.gameCamera = new OrthographicCamera();
+        this.gameCamera = new OrthographicCamera(1280, 800);
         this.viewport = new ExtendViewport(
+                1280,
                 800,
-                600,
                 this.gameCamera
         );
-    }
-
-    private void drawMainMenu() {
-
-    }
-
-    private void drawHighscores() {
-
-    }
-
-    private void drawCredits() {
-
-    }
-
-    private void drawGame() {
-
-    }
-
-    private void drawPauseMenu() {
-
     }
 }
