@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2D;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.boomergame.core.GameConfiguration;
 import com.boomergame.screenmanagement.*;
 
 public class BoomerGame extends Game {
@@ -14,6 +16,7 @@ public class BoomerGame extends Game {
 	public SpriteBatch mainBatch;
 	public SpriteBatch UIBatch;
 	Texture img;
+
 
 
 	MainMenuScreen menuScreen;
