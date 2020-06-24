@@ -7,10 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.boomergame.core.GameConfiguration;
@@ -25,6 +22,9 @@ public class MainMenuScreen implements Screen {
     Texture buttonTexture;
     Texture backgroundTexture;
     Skin skin;
+
+    private static final int BUTTON_HEIGHT = 40;
+    private static final int BUTTON_WIDTH = 120;
 
     public MainMenuScreen() {
         this.batch = new SpriteBatch();
@@ -42,18 +42,29 @@ public class MainMenuScreen implements Screen {
         Gdx.input.setInputProcessor(this.stage);
         Table mainTable = new Table();
         mainTable.setFillParent(true);
-        mainTable.top();
+        mainTable.bottom();
 
         //TODO: load texture drawables and assign it in here
 
         Label title;
 
-        ImageTextButton startButton, exitButton, optionsButton, creditsButton, shopButton;
-        startButton = new ImageTextButton("Start revenge!", this.skin);
-
+        TextButton startButton, exitButton, optionsButton, creditsButton, shopButton;
+        startButton = new TextButton("Start revenge!", this.skin);
+        exitButton = new TextButton("Quit", this.skin);
+        optionsButton = new TextButton("Options", this.skin);
+        creditsButton = new TextButton("Credits", this.skin);
+        shopButton = new TextButton("Boomer Shop!", this.skin);
 
         this.stage.addActor(mainTable);
-        mainTable.add(startButton);
+        mainTable.add(startButton).height(BUTTON_HEIGHT).width(BUTTON_WIDTH).center();
+        mainTable.row();
+        mainTable.add(optionsButton).height(BUTTON_HEIGHT).width(BUTTON_WIDTH).center();
+        mainTable.row();
+        mainTable.add(creditsButton).height(BUTTON_HEIGHT).width(BUTTON_WIDTH).center();
+        mainTable.row();
+        mainTable.add(shopButton).height(BUTTON_HEIGHT).width(BUTTON_WIDTH).center();
+        mainTable.row();
+        mainTable.add(exitButton).height(BUTTON_HEIGHT).width(BUTTON_WIDTH).center();
     }
 
     @Override

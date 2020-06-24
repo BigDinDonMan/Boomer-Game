@@ -4,17 +4,21 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: {
 		file: comic_sans.fnt
 	}
 }
-com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+com.badlogic.gdx.graphics.Color: {
+	RGBA_0_0_0_255: {
+		r: 0
+		g: 0
+		b: 0
+		a: 1
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	default: {
 		up: menu_button
 		down: menu_button_clicked
 		over: menu_button_hover
-	}
-}
-com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
-	default: {
-		parent: default
 		font: comic_sans
+		fontColor: RGBA_0_0_0_255
 	}
 }
 }
