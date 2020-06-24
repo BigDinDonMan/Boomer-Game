@@ -6,11 +6,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.boomergame.core.GameConfiguration;
+import com.mygdx.game.BoomerGame;
 
 public class MainMenuScreen implements Screen {
 
@@ -23,8 +26,8 @@ public class MainMenuScreen implements Screen {
     Texture backgroundTexture;
     Skin skin;
 
-    private static final int BUTTON_HEIGHT = 40;
-    private static final int BUTTON_WIDTH = 120;
+    private static final int BUTTON_HEIGHT = 60;
+    private static final int BUTTON_WIDTH = 170;
 
     public MainMenuScreen() {
         this.batch = new SpriteBatch();
@@ -54,6 +57,18 @@ public class MainMenuScreen implements Screen {
         optionsButton = new TextButton("Options", this.skin);
         creditsButton = new TextButton("Credits", this.skin);
         shopButton = new TextButton("Boomer Shop!", this.skin);
+
+        int bottomPadding = 10;
+
+        startButton.getLabelCell().center().padBottom(bottomPadding);
+        exitButton.getLabelCell().center().padBottom(bottomPadding);
+        optionsButton.getLabelCell().center().padBottom(bottomPadding);
+        creditsButton.getLabelCell().center().padBottom(bottomPadding);
+        shopButton.getLabelCell().center().padBottom(bottomPadding);
+
+        startButton.addListener(event -> {
+            return false;
+        });
 
         this.stage.addActor(mainTable);
         mainTable.add(startButton).height(BUTTON_HEIGHT).width(BUTTON_WIDTH).center();
