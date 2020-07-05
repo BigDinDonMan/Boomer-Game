@@ -6,14 +6,13 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.boomergame.core.GameConfiguration;
-import com.mygdx.game.BoomerGame;
+import com.boomergame.core.GameConfig;
 
 public class MainMenuScreen implements Screen {
 
@@ -32,8 +31,8 @@ public class MainMenuScreen implements Screen {
     public MainMenuScreen() {
         this.batch = new SpriteBatch();
         this.viewport = new ExtendViewport(
-                GameConfiguration.getResolutionWidth(),
-                GameConfiguration.getResolutionHeight()
+                GameConfig.getInstance().getResolutionX(),
+                GameConfig.getInstance().getResolutionY()
         );
         this.stage = new Stage(this.viewport, this.batch);
         this.backgroundTexture = new Texture(Gdx.files.internal("sprites/main_background.jpg"));
@@ -43,6 +42,10 @@ public class MainMenuScreen implements Screen {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(this.stage);
+        initializeScreen();
+    }
+
+    private void initializeScreen() {
         Table mainTable = new Table();
         mainTable.setFillParent(true);
         mainTable.bottom();
@@ -66,18 +69,41 @@ public class MainMenuScreen implements Screen {
         creditsButton.getLabelCell().center().padBottom(bottomPadding);
         shopButton.getLabelCell().center().padBottom(bottomPadding);
 
-        startButton.addListener(event -> {
-            return false;
+        startButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+            }
+        });
+        exitButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
+        optionsButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+            }
+        });
+        creditsButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+            }
+        });
+        shopButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+            }
         });
 
         this.stage.addActor(mainTable);
         mainTable.add(startButton).height(BUTTON_HEIGHT).width(BUTTON_WIDTH).center();
         mainTable.row();
+        mainTable.add(shopButton).height(BUTTON_HEIGHT).width(BUTTON_WIDTH).center();
+        mainTable.row();
         mainTable.add(optionsButton).height(BUTTON_HEIGHT).width(BUTTON_WIDTH).center();
         mainTable.row();
         mainTable.add(creditsButton).height(BUTTON_HEIGHT).width(BUTTON_WIDTH).center();
-        mainTable.row();
-        mainTable.add(shopButton).height(BUTTON_HEIGHT).width(BUTTON_WIDTH).center();
         mainTable.row();
         mainTable.add(exitButton).height(BUTTON_HEIGHT).width(BUTTON_WIDTH).center();
     }
@@ -92,8 +118,8 @@ public class MainMenuScreen implements Screen {
                 this.backgroundTexture,
                 0,
                 0,
-                GameConfiguration.getResolutionWidth(),
-                GameConfiguration.getResolutionHeight()
+                GameConfig.getInstance().getResolutionX(),
+                GameConfig.getInstance().getResolutionY()
         );
         this.batch.end();
 
